@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login page</title>
+</head>
+<body>
+<form action="" method="POST">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p>{{error}}</p>
+    {% endfor %}
+    {% endif %}
+
+
+    {% for i in form %}
+    {{i.label_tag}} {{i}}{{i.errors|striptags}}<br><br>
+    {% endfor %}
+    <input type="submit" value="login">
+    <a href="{% url 'logout' %}">logout</a>
+</form>
+
+</body>
+</html>

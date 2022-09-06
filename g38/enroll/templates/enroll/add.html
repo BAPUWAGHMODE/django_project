@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Added Data</title>
+</head>
+<body>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="submit">
+
+
+</form>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>img</th>
+        <th>pdf</th>
+        <th>action</th>
+    </tr>
+    {% if pi %}
+    {% for i in pi %}
+    <tr>
+        <td>{{i.em_name}}</td>
+        <td>{{i.em_email}}</td>
+        <td>
+            <img src="{{i.img.url}}" style="height=50px;width:50px;">
+        </td>
+        <td>
+            <a href="{{ i.pdf.url}}">pdf</a>
+        </td>
+
+        <td>
+            <form action="{% url 'delete' i.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="submit" value="delete">
+            </form>
+        </td>
+        <td>
+            <a href="{% url 'update' i.id %}">update</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+
+
+<a href="{% url 'logout' %}">logout</a>
+</body>
+</html>
